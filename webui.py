@@ -63,7 +63,7 @@ def install_dependencies():
 
     # Install the version of PyTorch needed
     if gpuchoice == "a":
-        run_cmd("mamba install -y -k pytorch[version=2,build=py3.10_cuda11.8*] mpi4py mpich torchvision torchaudio pytorch-cuda=11.8 cuda-toolkit ninja git -c pytorch -c nvidia/label/cuda-11.8.0 -c nvidia", assert_success=True, environment=True)
+        run_cmd("mamba install -y -k pytorch[version=2,build=py3.10_cuda11.8*] mpi4py mpich protobuf torchvision torchaudio pytorch-cuda=11.8 cuda-toolkit ninja git -c pytorch -c nvidia/label/cuda-11.8.0 -c nvidia", assert_success=True, environment=True)
         run_cmd("python -m pip install deepspeed", assert_success=True, environment=True)
     elif gpuchoice == "b":
         print("AMD GPUs are not supported. Exiting...")
@@ -75,7 +75,7 @@ def install_dependencies():
         sys.exit()
 
     # Clone webui to our computer
-    run_cmd("git clone https://github.com/artempanin/text-generation-webui.git", assert_success=True, environment=True)
+    run_cmd("git clone https://github.com/oobabooga/text-generation-webui.git", assert_success=True, environment=True)
     if sys.platform.startswith("win"):
         # Fix a bitsandbytes compatibility issue with Windows
         run_cmd("python -m pip install https://github.com/jllllll/bitsandbytes-windows-webui/raw/main/bitsandbytes-0.38.1-py3-none-any.whl", assert_success=True, environment=True)
@@ -118,7 +118,7 @@ def update_dependencies():
 
     # Fix a bitsandbytes compatibility issue with Linux
     if sys.platform.startswith("linux"):
-        shutil.copy(os.path.join(site_packages_path, "bitsandbytes", "libbitsandbytes_cuda117.so"), os.path.join(site_packages_path, "bitsandbytes", "libbitsandbytes_cpu.so"))
+        shutil.copy(os.path.join(site_packages_path, "bitsandbytes", "libbitsandbytes_cuda118.so"), os.path.join(site_packages_path, "bitsandbytes", "libbitsandbytes_cpu.so"))
 
     if not os.path.exists("repositories/"):
         os.mkdir("repositories")
