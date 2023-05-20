@@ -1,0 +1,2 @@
+# adapted_oobabooga_installer
+Improved oobabooga installer
